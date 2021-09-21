@@ -1,0 +1,22 @@
+Package: sdtt
+Type: Package
+Title: Simple Detection Theory Tool
+Version: 0.1.0
+Authors@R:
+  person(
+  given = "Stuart B.",
+  family = "Moore",
+  role = c("aut", "cre"),
+  email = "s.b.moore@keele.ac.uk",
+  comment = c(ORCID = "0000-0002-0747-9304")
+  )
+Maintainer: Stuart B. Moore <s.b.moore@keele.ac.uk>
+Description: A simple detection theory tool for calculating detection theory statistics.
+  
+Depends:
+  dplyr
+Imports:
+  dplyr
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
