@@ -11,8 +11,7 @@ Authors@R:
   comment = c(ORCID = "0000-0002-0747-9304")
   )
 Maintainer: Stuart B. Moore <s.b.moore@keele.ac.uk>
-Description: A simple detection theory tool for calculating detection theory statistics.
-  
+Description: A simple detection theory tool for calculating detection theory statistics
 Depends:
   dplyr
 Imports:

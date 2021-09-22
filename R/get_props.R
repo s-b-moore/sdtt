@@ -20,102 +20,222 @@
 
 get_props <- function(data,
                       id_var = "id",
-                      conditional_var = "con_p",
-                      return = "proportions"){
+                      probability_var = "con_p",
+                      return = "proportions",
+                      condition_var = NULL){
 
   # get a unique list of participants
   ppts <- unique(data[[id_var]])
 
   # change conditional column to factor
-  data[[conditional_var]] <- as.factor(data[[conditional_var]])
+  data[[probability_var]] <- as.factor(data[[probability_var]])
 
   # change participant ids variable to character
   ppts <- as.character(ppts)
 
-  # generate a temporary data frame
-  n_props <- data.frame(
-    id = ppts,
-    p_hit = numeric(length(ppts)),
-    p_miss = numeric(length(ppts)),
-    p_cr = numeric(length(ppts)),
-    p_fa = numeric(length(ppts))
-  )
+  if(is.null(condition_var)){
 
-  n_raw <- data.frame(
-    id = ppts,
-    n_hit = numeric(length(ppts)),
-    n_miss = numeric(length(ppts)),
-    n_cr = numeric(length(ppts)),
-    n_fa = numeric(length(ppts))
-  )
+    # generate a temporary data frame
+    n_props <- data.frame(
+      id = ppts,
+      p_hit = numeric(length(ppts)),
+      p_miss = numeric(length(ppts)),
+      p_cr = numeric(length(ppts)),
+      p_fa = numeric(length(ppts))
+    )
 
-  # loop over each participant
-  for(i in 1:length(ppts)){
+    n_raw <- data.frame(
+      id = ppts,
+      n_hit = numeric(length(ppts)),
+      n_miss = numeric(length(ppts)),
+      n_cr = numeric(length(ppts)),
+      n_fa = numeric(length(ppts))
+    )
 
-    # get the current participant's id
-    curr_ppt <- ppts[i]
+    # loop over each participant
+    for(i in 1:length(ppts)){
 
-    # get the current participant's data
-    curr_ppt_data <- data %>%
-      filter(data[[id_var]] == curr_ppt)
+      # get the current participant's id
+      curr_ppt <- ppts[i]
 
-    # get hit and miss data
-    hit_data <- curr_ppt_data %>%
-      filter(con_p == "hit" | con_p == "miss")
+      # get the current participant's data
+      curr_ppt_data <- data %>%
+        filter(data[[id_var]] == curr_ppt)
 
-    # find the total number of trials
-    n_trials <- nrow(hit_data)
+      # get hit and miss data
+      hit_data <- curr_ppt_data %>%
+        filter(con_p == "hit" | con_p == "miss")
 
-    # find the number of hits
-    n_hits <- hit_data %>%
-      filter(con_p == "hit") %>%
-      nrow()
+      # find the total number of trials
+      n_trials <- nrow(hit_data)
 
-    # add the number of hits to raw data frame
-    n_raw$n_hit[i] <- n_hits
+      # find the number of hits
+      n_hits <- hit_data %>%
+        filter(con_p == "hit") %>%
+        nrow()
 
-    # find the number of misses
-    n_misses <- hit_data %>%
-      filter(con_p == "miss") %>%
-      nrow()
+      # add the number of hits to raw data frame
+      n_raw$n_hit[i] <- n_hits
 
-    # add the number of misses to raw data frame
-    n_raw$n_miss[i] <- n_misses
+      # find the number of misses
+      n_misses <- hit_data %>%
+        filter(con_p == "miss") %>%
+        nrow()
 
-    # calculate and store the proportion of hits
-    n_props$p_hit[i] <- n_hits / n_trials
+      # add the number of misses to raw data frame
+      n_raw$n_miss[i] <- n_misses
 
-    # calculate and store the proportion of misses
-    n_props$p_miss[i] <- n_misses / n_trials
+      # calculate and store the proportion of hits
+      n_props$p_hit[i] <- n_hits / n_trials
 
-    # get correct rejection and false alarm data
-    cr_data <- curr_ppt_data %>%
-      filter(con_p == "correct_rejection" | con_p == "false_alarm")
+      # calculate and store the proportion of misses
+      n_props$p_miss[i] <- n_misses / n_trials
 
-    # find the total number of trials
-    n_trials <- nrow(cr_data)
+      # get correct rejection and false alarm data
+      cr_data <- curr_ppt_data %>%
+        filter(con_p == "correct_rejection" | con_p == "false_alarm")
 
-    # find the number of correct rejections
-    n_crs <- cr_data %>%
-      filter(con_p == "correct_rejection") %>%
-      nrow()
+      # find the total number of trials
+      n_trials <- nrow(cr_data)
 
-    # add the number of correct rejections to raw data frame
-    n_raw$n_cr[i] <- n_crs
+      # find the number of correct rejections
+      n_crs <- cr_data %>%
+        filter(con_p == "correct_rejection") %>%
+        nrow()
 
-    # find the number of false alarms
-    n_fas <- cr_data %>%
-      filter(con_p == "false_alarm") %>%
-      nrow()
+      # add the number of correct rejections to raw data frame
+      n_raw$n_cr[i] <- n_crs
 
-    # add the number of false alarms to raw data frame
-    n_raw$n_fa[i] <- n_fas
+      # find the number of false alarms
+      n_fas <- cr_data %>%
+        filter(con_p == "false_alarm") %>%
+        nrow()
 
-    # calculate and store the proportion of correct rejections
-    n_props$p_cr[i] <- n_crs / n_trials
+      # add the number of false alarms to raw data frame
+      n_raw$n_fa[i] <- n_fas
 
-    # calculate and store the proportion of false alarms
-    n_props$p_fa[i] <- n_fas / n_trials
+      # calculate and store the proportion of correct rejections
+      n_props$p_cr[i] <- n_crs / n_trials
+
+      # calculate and store the proportion of false alarms
+      n_props$p_fa[i] <- n_fas / n_trials
+    }
+  }
+
+  if(!is.null(condition_var)){
+
+    # get the list of conditions
+    data$condition <- data[[condition_var]]
+    conditions <- unique(data[, "condition"])
+
+    # loop over each condition
+    for(i in 1:length(conditions)){
+
+      # get the current level's data
+      level_data <- data %>%
+        filter(data$sequence == conditions[i])
+
+      # generate a temporary data frame
+      level_props <- data.frame(
+        id = ppts,
+        p_hit = numeric(length(ppts)),
+        p_miss = numeric(length(ppts)),
+        p_cr = numeric(length(ppts)),
+        p_fa = numeric(length(ppts)),
+        condition = rep(conditions[i], length(ppts))
+      )
+
+      level_raw <- data.frame(
+        id = ppts,
+        n_hit = numeric(length(ppts)),
+        n_miss = numeric(length(ppts)),
+        n_cr = numeric(length(ppts)),
+        n_fa = numeric(length(ppts)),
+        condition = rep(conditions[i], length(ppts))
+      )
+
+      # loop over all participants
+      for(i in 1:length(ppts)){
+
+        # get the current participant's id
+        curr_ppt <- ppts[i]
+
+        # get current participant's data
+        curr_ppt_data <- data %>%
+          filter(data$id == curr_ppt)
+
+        # get hit and miss data
+        hit_data <- level_data %>%
+          filter(con_p == "hit" | con_p == "miss")
+
+        # find the total number of trials
+        n_trials <- nrow(hit_data)
+
+        # find the number of hits
+        n_hits <- hit_data %>%
+          filter(con_p == "hit") %>%
+          nrow()
+
+        # add the number of hits to raw data frame
+        level_raw$n_hit[i] <- n_hits
+
+        # find the number of misses
+        n_misses <- hit_data %>%
+          filter(con_p == "miss") %>%
+          nrow()
+
+        # add the number of misses to raw data frame
+        level_raw$n_miss[i] <- n_misses
+
+        # calculate and store the proportion of hits
+        level_props$p_hit[i] <- n_hits / n_trials
+
+        # calculate and store the proportion of misses
+        level_props$p_miss[i] <- n_misses / n_trials
+
+        # get correct rejection and false alarm data
+        cr_data <- level_data %>%
+          filter(con_p == "correct_rejection" | con_p == "false_alarm")
+
+        # find the total number of trials
+        n_trials <- nrow(cr_data)
+
+        # find the number of correct rejections
+        n_crs <- cr_data %>%
+          filter(con_p == "correct_rejection") %>%
+          nrow()
+
+        # add the number of correct rejections to raw data frame
+        level_raw$n_cr[i] <- n_crs
+
+        # find the number of false alarms
+        n_fas <- cr_data %>%
+          filter(con_p == "false_alarm") %>%
+          nrow()
+
+        # add the number of false alarms to raw data frame
+        level_raw$n_fa[i] <- n_fas
+
+        # calculate and store the proportion of correct rejections
+        level_props$p_cr[i] <- n_crs / n_trials
+
+        # calculate and store the proportion of false alarms
+        level_props$p_fa[i] <- n_fas / n_trials
+      }
+
+      # initialise empty containers
+      n_props <- NULL
+      n_raw <- NULL
+
+      # stitch data together
+      if(i == 1){
+        n_props <- level_props
+        n_raw <- level_raw
+      } else{
+        n_props <- rbind(n_props, level_props)
+        n_raw <- rbind(n_raw, level_raw)
+      }
+    }
   }
 
   # return data
@@ -130,8 +250,6 @@ get_props <- function(data,
 
     return(all_data)
   }
-
-
 }
 
 

@@ -9,7 +9,7 @@
 #' @param acc_var Quoted column name coding for accuracy.
 #' Accuracy data should be binary with 1 coding for correct and 0 incorrect.
 #'
-#' @param change_var Quoted column name coding for condition variable.
+#' @param signal_var Quoted column name coding for condition variable.
 #' Condition data should be binary with 1 coding for signal present and
 #' 0 for signal absent (e.g., change/no change; old/new).
 #'
@@ -20,7 +20,7 @@ get_probs <- function(data,
                       id_var = "id",
                       accuracy_var = "accuracy",
                       condition_var = NULL,
-                      change_var = "change_type"){
+                      signal_var = "signal_type"){
 
   # get a unique list of participants
   ppts <- unique(data[[id_var]])
@@ -40,30 +40,27 @@ get_probs <- function(data,
       # assign conditional probability
       for(i in 1:nrow(curr_data)){
 
-        if(curr_data$accuracy[i] == 1 &&
-           curr_data$change_type[i] == 1){
-          curr_data$con_p[i] <- "hit"
+        if(curr_data[[signal_var]][i] == 1){
+          if(curr_data$accuracy[i] == 1){
+            curr_data$con_p[i] <- "hit"
           }
-
-        if(curr_data$accuracy[i] == 0 &&
-           curr_data$change_type[i] == 1){
-          curr_data$con_p[i] <- "miss"
+          if(curr_data$accuracy[i] == 0){
+            curr_data$con_p[i] <- "miss"
           }
-
-        if(curr_data$accuracy[i] == 1 &&
-           curr_data$change_type[i] == 0){
-          curr_data$con_p[i] <- "correct_rejection"
+        }
+        if(curr_data[[signal_var]][i] == 0){
+          if(curr_data$accuracy[i] == 1){
+            curr_data$con_p[i] <- "correct_rejection"
           }
-
-        if(curr_data$accuracy[i] == 0 &&
-           curr_data$change_type[i] == 0){
-          curr_data$con_p[i] <- "false_alarm"
+          if(curr_data$accuracy[i] == 0){
+            curr_data$con_p[i] <- "false_alarm"
+          }
         }
       }
-    }
 
-    # bind data
-    all_data <- rbind(all_data, curr_data)
+      # bind data
+      all_data <- rbind(all_data, curr_data)
+    }
   }
 
   if(!is.null(condition_var)){
@@ -89,7 +86,7 @@ get_probs <- function(data,
         # assign conditional probability
         for(i in 1:nrow(curr_data)){
 
-          if(curr_data$change_type[i] == 1){
+          if(curr_data[[signal_var]][i] == 1){
             if(curr_data$accuracy[i] == 1){
               curr_data$con_p[i] <- "hit"
             }
@@ -97,7 +94,7 @@ get_probs <- function(data,
               curr_data$con_p[i] <- "miss"
             }
           }
-          if(curr_data$change_type[i] == 0){
+          if(curr_data[[signal_var]][i] == 0){
             if(curr_data$accuracy[i] == 1){
               curr_data$con_p[i] <- "correct_rejection"
             }
