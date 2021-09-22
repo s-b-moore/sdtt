@@ -124,16 +124,11 @@ get_props <- function(data,
 
   if(!is.null(condition_var)){
 
-    # get the list of conditions
+    # get a unique list of conditions
     data$condition <- data[[condition_var]]
     conditions <- unique(data[, "condition"])
 
-    # loop over each condition
     for(i in 1:length(conditions)){
-
-      # get the current level's data
-      level_data <- data %>%
-        filter(data$sequence == conditions[i])
 
       # generate a temporary data frame
       level_props <- data.frame(
@@ -154,18 +149,20 @@ get_props <- function(data,
         condition = rep(conditions[i], length(ppts))
       )
 
-      # loop over all participants
+      level_data <- data %>%
+        filter(data$condition == conditions[i])
+
       for(i in 1:length(ppts)){
 
-        # get the current participant's id
+        # get current participant's id
         curr_ppt <- ppts[i]
 
-        # get current participant's data
-        curr_ppt_data <- data %>%
-          filter(data$id == curr_ppt)
+        # get the current participant's data
+        curr_ppt_data <- level_data %>%
+          filter(level_data[[id_var]] == curr_ppt)
 
         # get hit and miss data
-        hit_data <- level_data %>%
+        hit_data <- curr_ppt_data %>%
           filter(con_p == "hit" | con_p == "miss")
 
         # find the total number of trials
@@ -194,7 +191,7 @@ get_props <- function(data,
         level_props$p_miss[i] <- n_misses / n_trials
 
         # get correct rejection and false alarm data
-        cr_data <- level_data %>%
+        cr_data <- curr_ppt_data %>%
           filter(con_p == "correct_rejection" | con_p == "false_alarm")
 
         # find the total number of trials
@@ -221,19 +218,6 @@ get_props <- function(data,
 
         # calculate and store the proportion of false alarms
         level_props$p_fa[i] <- n_fas / n_trials
-      }
-
-      # initialise empty containers
-      n_props <- NULL
-      n_raw <- NULL
-
-      # stitch data together
-      if(i == 1){
-        n_props <- level_props
-        n_raw <- level_raw
-      } else{
-        n_props <- rbind(n_props, level_props)
-        n_raw <- rbind(n_raw, level_raw)
       }
     }
   }
