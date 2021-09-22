@@ -218,6 +218,14 @@ get_props <- function(data,
 
         # calculate and store the proportion of false alarms
         level_props$p_fa[i] <- n_fas / n_trials
+
+        # initialise empty containers
+        n_raw <- NULL
+        n_props <- NULL
+
+        # bind data
+        n_raw <- rbind(n_raw, level_raw)
+        n_props <- rbind(n_props, level_props)
       }
     }
   }
@@ -235,25 +243,4 @@ get_props <- function(data,
     return(all_data)
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
