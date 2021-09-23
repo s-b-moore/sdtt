@@ -12,6 +12,7 @@
 #'
 #' @importFrom dplyr %>%
 #' @importFrom dplyr mutate
+#' @importFrom dplyr select
 
 d_prime <- function(data,
                     id_var = "id",
@@ -33,30 +34,35 @@ d_prime <- function(data,
 
   if(sum(data$check >= 1)){
 
-    response <- menu("Log-linear", title = "Extreme value detected, correction required. Please select correction type:")
+    if("n_hit" %in% colnames(data) == FALSE){
+      message("ERROR! Please recalculate proportions, returning raw values, and then recalculate d'.")
+    } else{
 
-    if(response == 1){
+      response <- menu("Log-linear", title = "Extreme value detected, correction required. Please select correction type:")
 
-      data <- data %>%
-        mutate(n_hit = n_hit + 0.5) %>%
-        mutate(n_miss = n_miss + 0.5) %>%
-        mutate(n_cr = n_cr + 0.5) %>%
-        mutate(n_fa = n_fa + 0.5)
+      if(response == 1){
 
-      hit_t <- data$n_hit + data$n_miss
-      cr_t <- data$n_cr + data$n_fa
+        data <- data %>%
+          mutate(n_hit = n_hit + 0.5) %>%
+          mutate(n_miss = n_miss + 0.5) %>%
+          mutate(n_cr = n_cr + 0.5) %>%
+          mutate(n_fa = n_fa + 0.5)
 
-      data <- data %>%
-        mutate(p_hit = n_hit / hit_t) %>%
-        mutate(p_miss = n_miss / hit_t) %>%
-        mutate(p_cr = n_cr / cr_t) %>%
-        mutate(p_fa = n_fa / cr_t)
+        hit_t <- data$n_hit + data$n_miss
+        cr_t <- data$n_cr + data$n_fa
 
-      data <- data %>%
-        mutate(d_prime = qnorm(p_hit) - qnorm(p_fa))
+        data <- data %>%
+          mutate(p_hit = n_hit / hit_t) %>%
+          mutate(p_miss = n_miss / hit_t) %>%
+          mutate(p_cr = n_cr / cr_t) %>%
+          mutate(p_fa = n_fa / cr_t)
 
-      data <- data %>%
-        select(-check)
+        data <- data %>%
+          mutate(d_prime = qnorm(p_hit) - qnorm(p_fa))
+
+        data <- data %>%
+          select(-check)
+      }
     }
   } else{
     print("Proceed with analysis.")
