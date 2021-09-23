@@ -19,8 +19,8 @@
 get_probs <- function(data,
                       id_var = "id",
                       accuracy_var = "accuracy",
-                      condition_var = NULL,
-                      signal_var = "signal_type"){
+                      signal_var = "signal_type",
+                      condition_var = NULL){
 
   # get a unique list of participants
   ppts <- unique(data[[id_var]])
@@ -108,6 +108,16 @@ get_probs <- function(data,
         all_data <- rbind(all_data, curr_data)
       }
     }
+  }
+
+  # select relevant data
+  if(is.null(condition_var)){
+    all_data <- all_data %>%
+      select(id, con_p)
+  }
+  if(!is.null(condition_var)){
+    all_data <- all_data %>%
+      select(id, con_p, condition)
   }
 
   # return data

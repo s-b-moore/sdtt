@@ -11,7 +11,10 @@ Authors@R:
   comment = c(ORCID = "0000-0002-0747-9304")
   )
 Maintainer: Stuart B. Moore <s.b.moore@keele.ac.uk>
-Description: A simple detection theory tool for calculating detection theory statistics
+Description: A simple detection theory tool for calculating detection theory statistics.
+  Assign conditional probabilities per participant, per condition and calculate proportion
+  of each conditional probability. Raw totals for each conditional probability can also be
+  requested by the user. 
 Depends:
   dplyr
 Imports:

@@ -30,9 +30,10 @@ d_prime <- function(data,
       data$check[i] <- 0
     }
   }
+
   if(sum(data$check >= 1)){
 
-    response <- menu("Log-linear", title = "Correction required. Please select correction type:")
+    response <- menu("Log-linear", title = "Extreme value detected, correction required. Please select correction type:")
 
     if(response == 1){
 
@@ -63,25 +64,5 @@ d_prime <- function(data,
 
   # return data
   return(data)
-}
-
-# =============================================================================
-
-#' Function to check for extreme values.
-#'
-#' @description
-#' Function called by user. Checks various SDT statistics
-#' for extreme values and passes outcome to the console.
-#'
-#' @param id_var Quoted column name coding for participant ID.
-#'
-#' @param check_var Quoted column name coding for column of values to be
-#' checked.
-
-ext_check <- function(data,
-                      id_var = "id",
-                      check_var = NULL){
-
-
 }
 
