@@ -13,4 +13,4 @@ devtools::install_github("s-b-moore/sdtt")
 ```
 
 ## Future development
-The package will be updated with additional functionality going forward, with the aim to make it as user-friendly as possible.
+The package will be updated with additional functionality going forward, with the aim to make it as user-friendly as possible. If you have any suggestions for the package, please feel free to contact the package author/maintainer (contact details located in DESCRIPTION file).
