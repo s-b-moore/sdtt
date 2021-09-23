@@ -2,17 +2,18 @@
 #'
 #' @description
 #' Function called by the user to calculate proportions of each conditional
-#' probability.
+#' probability. Data should include a column containing the conditional
+#' probabilities assigned using the "get_probs" function.
 #'
 #' @param id_var Quoted column name coding for participant ID.
 #'
+#' @param return If set to "proportions", returns a data frame
+#' containing the proportions of each conditional probability. If set to
+#' "raw" (default), returns the proportions of each conditional probability as well
+#' as the total number of trials for each conditional probability.
+#'
 #' @param conditional_var Quoted column name coding for conditional
 #' probability for each row.
-#'
-#' @param return If set to "proportions" (default), returns a data frame
-#' containing the proportions of each conditional probability. If set to
-#' "raw", returns the proportions of each conditional probability as well
-#' as the total number of trials for each conditional probability.
 #'
 #' @importFrom dplyr %>%
 #' @importFrom dplyr filter
@@ -21,7 +22,7 @@
 get_props <- function(data,
                       id_var = "id",
                       probability_var = "con_p",
-                      return = "proportions",
+                      return = "raw",
                       condition_var = NULL){
 
   # get a unique list of participants

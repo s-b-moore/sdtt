@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Function called by the user to assign conditional probabilities to data.
-#' Data should include accuracy (binary) and condition (e.g., change/no change).
+#' Data should include accuracy (binary) and a signal variable (e.g., change/no change).
 #'
 #' @param id_var Quoted column name coding for participant ID.
 #'
