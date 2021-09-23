@@ -128,29 +128,28 @@ get_props <- function(data,
     data$condition <- data[[condition_var]]
     conditions <- unique(data[, "condition"])
 
-    for(i in 1:length(conditions)){
+    # generate a temporary data frame
+    level_props <- data.frame(
+      id = ppts,
+      p_hit = numeric(length(ppts)),
+      p_miss = numeric(length(ppts)),
+      p_cr = numeric(length(ppts)),
+      p_fa = numeric(length(ppts))
+    )
 
-      # generate a temporary data frame
-      level_props <- data.frame(
-        id = ppts,
-        p_hit = numeric(length(ppts)),
-        p_miss = numeric(length(ppts)),
-        p_cr = numeric(length(ppts)),
-        p_fa = numeric(length(ppts)),
-        condition = rep(conditions[i], length(ppts))
-      )
+    level_raw <- data.frame(
+      id = ppts,
+      n_hit = numeric(length(ppts)),
+      n_miss = numeric(length(ppts)),
+      n_cr = numeric(length(ppts)),
+      n_fa = numeric(length(ppts))
+    )
 
-      level_raw <- data.frame(
-        id = ppts,
-        n_hit = numeric(length(ppts)),
-        n_miss = numeric(length(ppts)),
-        n_cr = numeric(length(ppts)),
-        n_fa = numeric(length(ppts)),
-        condition = rep(conditions[i], length(ppts))
-      )
+    for(j in 1:length(conditions)){
 
+      # get the condition data
       level_data <- data %>%
-        filter(data$condition == conditions[i])
+        filter(.data$condition == conditions[j])
 
       for(i in 1:length(ppts)){
 
@@ -218,14 +217,19 @@ get_props <- function(data,
 
         # calculate and store the proportion of false alarms
         level_props$p_fa[i] <- n_fas / n_trials
+      }
 
-        # initialise empty containers
-        n_raw <- NULL
-        n_props <- NULL
+      # add condition data
+      level_props <- level_props %>%
+        mutate(condition = conditions[j])
 
-        # bind data
-        n_raw <- rbind(n_raw, level_raw)
+      # bind data together
+      if(j == 1){
+        n_props <- level_props
+        n_raw <- level_raw
+      } else{
         n_props <- rbind(n_props, level_props)
+        n_raw <- rbind(n_raw, level_raw)
       }
     }
   }
