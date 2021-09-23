@@ -66,6 +66,9 @@ criterion <- function(data,
     }
   } else{
     print("Proceed with analysis.")
+
+    data <- data %>%
+      select(-check)
   }
 
   # return data
