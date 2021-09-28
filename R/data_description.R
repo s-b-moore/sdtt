@@ -1,0 +1,17 @@
+#' Example data set from a change detection switching experiment
+#'
+#' Example data from a change detection switching experiment conducted as part
+#' of the package author's PhD.
+#'
+#' @format A data frame with 4380 rows and 4 variables:
+#' \describe{
+#'   \item{id}{participant identification}
+#'   \item{change_type}{whether a trial included a change or not}
+#'   \item{accuracy}{whether the participant's response was correct or not}
+#'   \item{sequence}{condition of the experiment: whether a trial was a pure
+#'   repetition, mixed repetition, or mixed switch trial}
+#'}
+#'@source
+#'The data set is available on the Open Science Framework:
+#'https://bit.ly/2Y6Z05i
+"example_data"
