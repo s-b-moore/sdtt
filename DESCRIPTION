@@ -17,6 +17,7 @@ Description: A simple detection theory tool for calculating detection theory sta
   can then be used to calculate various detection theory statistics such as d' and criterion.
 Depends:
   dplyr
+  R (>= 3.5)
 Imports:
   dplyr
 License: GPL-3
