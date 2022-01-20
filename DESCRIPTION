@@ -15,11 +15,8 @@ Description: A simple detection theory tool for calculating detection theory sta
   Assign conditional probabilities and calculate proportion of each conditional probability. 
   Raw totals for each conditional probability can also be requested by the user. Proportions
   can then be used to calculate various detection theory statistics such as d' and criterion.
-Depends:
-  dplyr
-  R (>= 3.5)
-Imports:
-  dplyr
+Depends: R (>= 3.5)
+Imports: dplyr
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
