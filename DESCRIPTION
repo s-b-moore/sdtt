@@ -23,4 +23,5 @@ Imports:
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+URL: https://github.com/s-b-moore/sdtt
 RoxygenNote: 7.1.1
