@@ -9,6 +9,10 @@
 # For automatic correction/recalculation to run, data passed to the
 # calc_measures() function must include outcome totals (i.e., columns titled
 # "n_hit", "n_miss", "n_cr", "n_fa") returned from get_props() function.
+#
+#' @importFrom dplyr %>%
+#' @importFrom dplyr mutate
+
 
 # required arguments for the function
 check <- function(data,

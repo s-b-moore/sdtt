@@ -16,7 +16,7 @@ Description: A simple detection theory tool for calculating detection theory
   alarms) and calculate proportion of each conditional probability. Raw totals 
   for each outcome are also provided. Proportions can then be used to calculate 
   various detection theory statistics such as d' and criterion.
-Depends: R (>= 3.5)
+Depends: R (>= 4.2.0)
 Imports: dplyr
 License: GPL-3
 Encoding: UTF-8
