@@ -33,6 +33,8 @@
 #' }
 #' @importFrom dplyr %>%
 #' @importFrom dplyr mutate
+#'
+#' @export
 
 # required arguments for the function
 calc_measures <- function(data,

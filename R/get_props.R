@@ -40,6 +40,8 @@
 #' }
 #' @importFrom dplyr %>%
 #' @importFrom dplyr filter
+#'
+#' @export
 
 # required arguments for the function
 get_props <- function(data,

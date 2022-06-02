@@ -22,6 +22,8 @@
 #' @importFrom dplyr %>%
 #' @importFrom dplyr case_when
 #' @importFrom dplyr filter
+#'
+#' @export
 
 # required arguments for the function
 assign_outcome <- function(data,
