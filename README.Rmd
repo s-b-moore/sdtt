@@ -1,15 +1,23 @@
 # sdtt: Simple Detection Theory Tool
 
 ## Overview
-sdtt is an R package for calculating various detection theory statistics. As well as being able to calculate statistics such as *d'* and *criterion*, the package also enables users to obtain conditional probabilities and proportions of each probability which can be used in calculation of the aforementioned statistics.
+sdtt is an R package for calculating various signal detection theory (SDT) statistics. The package enables users to assign outcomes (i.e., hit, miss, correct rejection, and false alarm) to data and calculate proportions for each outcome. Currently, two measures from SDT are implemented in sdtt, *d'* and *criterion*. When calculating SDT measures, an automatic check is run to determine whether extreme values have been detected; if extreme values are detected, the user is prompted to selected a correction type (only the loglinear correction is implemented at this time) which recalculates proportions and the user defined SDT measure.
 
 ## Installation
-You can install sdtt from [GitHub](github.com) with:
+The initial version of sdtt can be installed from [GitHub](github.com) with:
 
 ``` r
 
 # install.packages("devtools")
 devtools::install_github("s-b-moore/sdtt")
+```
+
+An updated version of sdtt is also available. This involved a complete rewrite of the functions within the original sdtt package but should prove to be more user-friendly and much quicker. The development version can be installed from [Github](github.com) with:
+
+``` r
+
+# install.packages("devtools")
+devtools::install_github("s-b-moore/sdtt", ref = "sdtt-devel")
 ```
 
 ## Future development
