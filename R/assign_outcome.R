@@ -5,8 +5,6 @@
 #' Data should include a column coding for accuracy and a column coding for
 #' signal type
 #'
-#' @param id_var Quoted column name coding for participant ID.
-#'
 #' @param acc_var Quoted column name coding for accuracy.
 #' Accuracy data should be binary with 1 coding for correct and 0 incorrect.
 #'
