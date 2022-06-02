@@ -20,6 +20,7 @@
 #' Therefore, in most cases it would be unnecessary to specify correction
 #' here.
 #'
+#' \dontrun{
 #' @examples
 #' # using get_props() with outcome data from assign_outcome() example with no
 #' # condition or correction arguments passed
@@ -36,7 +37,7 @@
 #'                          outcome_var = "outcome",
 #'                          condition_var = "sequence",
 #'                          correction = NULL)
-#'
+#' }
 #' @importFrom dplyr %>%
 #' @importFrom dplyr filter
 

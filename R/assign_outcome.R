@@ -15,11 +15,12 @@
 #' coding for signal present and 0 coding for signal absent
 #'
 #' @examples
+#' \dontrun{
 #' # using assign_outcome() with change detection data
 #' outcome_data <- assign_outcome(my_data,
 #'                                acc_var = "accuracy",
 #'                                signal_var = "change_type")
-#'
+#' }
 #' @importFrom dplyr %>%
 #' @importFrom dplyr case_when
 #' @importFrom dplyr filter

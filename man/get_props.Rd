@@ -20,34 +20,9 @@ get_props(
 assign_outcome() function.}
 
 \item{condition_var}{Quoted column name coding for condition.}
-
-\item{correction}{A string indicating which correction to apply when
-calculating proportions. At present, only the loglinear correction
-(see Hautus, 1995) is implemented. A check will be run during calculation of
-SDT measures which recalculates proportions with correction if necessary.
-Therefore, in most cases it would be unnecessary to specify correction
-here.}
 }
 \description{
 Function called by the user to calculate proportions of each outcome.
 Data should include a column containing the outcomes assigned using the
 assign_outcome() function as well as a column containing participant ID.
-}
-\examples{
-# using get_props() with outcome data from assign_outcome() example with no
-# condition or correction arguments passed
-proportions <- get_props(outcome_data,
-                         id_var = "id",
-                         outcome_var = "outcome",
-                         condition_var = NULL,
-                         correction = NULL)
-
-# using get_props() with outcome data from assign_outcome() example with
-condition argument passed
-proportions <- get_props(outcome_data,
-                         id_var = "id",
-                         outcome_var = "outcome",
-                         condition_var = "sequence",
-                         correction = NULL)
-
 }

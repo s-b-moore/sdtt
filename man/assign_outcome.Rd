@@ -22,9 +22,10 @@ Data should include a column coding for accuracy and a column coding for
 signal type
 }
 \examples{
+\dontrun{
 # using assign_outcome() with change detection data
 outcome_data <- assign_outcome(my_data,
                                acc_var = "accuracy",
                                signal_var = "change_type")
-
+}
 }

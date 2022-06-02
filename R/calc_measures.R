@@ -16,6 +16,7 @@
 #' only d' and criterion measures are implemented.
 #'
 #' @examples
+#' \dontrun{
 #' # using calc_measures() with proportions data from get_props() example,
 #' # passing d' as the measure to calculate
 #' d_data <- calc_measures(proportions,
@@ -29,7 +30,7 @@
 #'                         hit_var = "p_hit",
 #'                         fa_var = "p_fa",
 #'                         measure = "criterion")
-#'
+#' }
 #' @importFrom dplyr %>%
 #' @importFrom dplyr mutate
 
