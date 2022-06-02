@@ -13,8 +13,6 @@ Accuracy data should be binary with 1 coding for correct and 0 incorrect.}
 \item{signal_var}{Quoted column name indicating signal status
 (e.g., old/new, change/no change). Signal data should be binary with 1
 coding for signal present and 0 coding for signal absent}
-
-\item{id_var}{Quoted column name coding for participant ID.}
 }
 \description{
 Function called by the user to assign outcomes.
