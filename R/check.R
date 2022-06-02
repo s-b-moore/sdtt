@@ -19,8 +19,9 @@ check <- function(data,
                   measure_var = "measure"){
 
   # if any Inf present in the column, print message and response to console
-  if(any(is.infinite(data[[measure_var]])) == TRUE){
-    response <- menu("Loglinear", title = "Extreme (Inf) value detected, correction required. Please select correction type:")
+  if(any(is.infinite(data[[measure_var]])) == TRUE |
+     any(is.nan(data[[measure_var]])) == TRUE){
+    response <- menu("Loglinear", title = "Extreme (Inf/NaN) value detected, correction required. Please select correction type:")
 
     # store the response
     if(response == 1){
@@ -59,11 +60,20 @@ check <- function(data,
           mutate(criterion = -0.5 * (qnorm(data$p_hit) + qnorm(data$p_fa)))
       }
 
+      # recalculate c'
+      if(measure_var == "c_prime"){
+
+        # mutate data frame and calculate c'
+        data <- data %>%
+          mutate(c_prime = -0.5 * (qnorm(data$p_hit) + qnorm(data$p_fa)) /
+                   (qnorm(data$p_hit) - qnorm(data$p_fa)))
+      }
+
       # return data
       return(data)
     }
   } else{
-    message("No extreme (Inf) values detected. Proceed with analysis.")
+    message("No extreme (Inf/NaN) values detected. Proceed with analysis.")
     return(data)
   }
 }

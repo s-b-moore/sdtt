@@ -11,8 +11,7 @@ calc_measures(data, hit_var = "p_hit", fa_var = "p_fa", measure = NULL)
 
 \item{fa_var}{Quoted column name coding for proportion of false alarms.}
 
-\item{measure}{A string indicating which measure to calculate. At present,
-only d' and criterion measures are implemented.}
+\item{measure}{A string indicating which measure to calculate.}
 }
 \description{
 Function called by user to calculate various SDT measures. Data should
@@ -37,5 +36,12 @@ c_data <- calc_measures(proportions,
                         hit_var = "p_hit",
                         fa_var = "p_fa",
                         measure = "criterion")
+
+# using calc_measures() with proportions data from get_props() example,
+# passing c' as the measure to calculate
+c_prime_data <- calc_measures(proportions,
+                              hit_var = "p_hit",
+                              fa_var = "p_fa",
+                              measure = "c_prime")
 }
 }

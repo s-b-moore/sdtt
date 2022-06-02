@@ -12,8 +12,7 @@
 #'
 #' @param fa_var Quoted column name coding for proportion of false alarms.
 #'
-#' @param measure A string indicating which measure to calculate. At present,
-#' only d' and criterion measures are implemented.
+#' @param measure A string indicating which measure to calculate.
 #'
 #' @examples
 #' \dontrun{
@@ -30,6 +29,13 @@
 #'                         hit_var = "p_hit",
 #'                         fa_var = "p_fa",
 #'                         measure = "criterion")
+#'
+#' # using calc_measures() with proportions data from get_props() example,
+#' # passing c' as the measure to calculate
+#' c_prime_data <- calc_measures(proportions,
+#'                               hit_var = "p_hit",
+#'                               fa_var = "p_fa",
+#'                               measure = "c_prime")
 #' }
 #' @importFrom dplyr %>%
 #' @importFrom dplyr mutate
@@ -60,6 +66,15 @@ calc_measures <- function(data,
                       fa_var = fa_var)
   }
 
+  # if measure = "c_prime"
+  if(measure == "c_prime"){
+
+    # call c_prime() function
+    data <- c_prime(data,
+                    hit_var = hit_var,
+                    fa_var = fa_var)
+  }
+
   # return data
   return(data)
 }
@@ -85,11 +100,14 @@ d_prime <- function(data,
   data <- check(data,
                 measure_var = "d_prime")
 
+  # round d'
+  data$d_prime <- round(data$d_prime, 3)
+
   # return data
   return(data)
 }
 
-# Calculate criterion
+# Calculate absolute criterion (c)
 # This wrapper function is called by the calc_measures() function when
 # "criterion" is passed as the measure to be calculated. It is not expected
 # that this function be called by the user.
@@ -109,6 +127,38 @@ criterion <- function(data,
   # check for Inf values in criterion
   data <- check(data,
                 measure_var = "criterion")
+
+  # round criterion
+  data$criterion <- round(data$criterion, 3)
+
+  # return data
+  return(data)
+}
+
+# Calculate relative criterion (c')
+# This wrapper function is called by the calc_measures() function when
+# "c_prime" is passed as the measure to be calculated. It is not expected
+# that this function be called by the user.
+#
+#' @importFrom dplyr %>%
+#' @importFrom dplyr mutate
+
+# required arguments for the function
+c_prime <- function(data,
+                    hit_var = "p_hit",
+                    fa_var = "p_fa"){
+
+  # mutate data frame and calculate c'
+  data <- data %>%
+    mutate(c_prime = -0.5 * (qnorm(data[[hit_var]]) + qnorm(data[[fa_var]])) /
+             (qnorm(data[[hit_var]]) - qnorm(data[[fa_var]])))
+
+  # check for Inf values in c'
+  data <- check(data,
+                measure_var = "c_prime")
+
+  # round c'
+  data$c_prime <- round(data$c_prime, 3)
 
   # return data
   return(data)
