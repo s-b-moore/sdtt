@@ -13,7 +13,6 @@ devtools::install_github("s-b-moore/sdtt")
 ```
 
 An updated version of sdtt is also available. This involved a complete rewrite of the functions within the original sdtt package but should prove to be more user-friendly and much quicker. The development version can be installed from [Github](github.com) with:
->>>>>>> sdtt-devel
 
 ``` r
 
