@@ -20,13 +20,5 @@ An updated version of sdtt is also available. This involved a complete rewrite o
 devtools::install_github("s-b-moore/sdtt", ref = "sdtt-devel")
 ```
 
-A further developmental version of sdtt is available which implements the relative criterion measure. This can be installed from [GitHub](github.com) with:
-
-``` r
-
-# install.packages("devtools")
-devtools::install_github("s-b-moore/sdtt", ref = "relative-c")
-```
-
 ## Future development
 The package will be updated with additional functionality going forward, with the aim to make it as user-friendly as possible. If you have any suggestions for the package, please feel free to contact the package author/maintainer (contact details located in DESCRIPTION file).
