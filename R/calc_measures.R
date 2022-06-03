@@ -203,7 +203,7 @@ lr <- function(data,
                 measure_var = "beta_lr")
 
   # round LR
-  data$likelihood_ratio <- round(data$beta_lr, 3)
+  data$beta_lr <- round(data$beta_lr, 3)
 
   # return data
   return(data)
