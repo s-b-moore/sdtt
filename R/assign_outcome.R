@@ -30,6 +30,12 @@ assign_outcome <- function(data,
                            acc_var = "accuracy",
                            signal_var = "signal"){
 
+  # error message if arguments are missing
+  if(missing(acc_var) | missing(signal_var)){
+
+    stop("Arguments for both 'acc_var' and 'signal_var' must be passed. Check each of these arguments in the call to assign_outcome().", call. = FALSE)
+  }
+
   # mutate data and assign outcomes
   data <- data %>%
     mutate(outcome = case_when(data[[acc_var]] == 1 &
