@@ -1,24 +1,25 @@
 Package: sdtt
 Type: Package
 Title: Simple Detection Theory Tool
-Version: 0.1.0
+Version: 0.2.0
 Authors@R:
   person(
   given = "Stuart B.",
   family = "Moore",
   role = c("aut", "cre"),
-  email = "s.b.moore@keele.ac.uk",
+  email = "mooresb.ac@gmail.com",
   comment = c(ORCID = "0000-0002-0747-9304")
   )
-Maintainer: Stuart B. Moore <s.b.moore@keele.ac.uk>
-Description: A simple detection theory tool for calculating detection theory statistics.
-  Assign conditional probabilities and calculate proportion of each conditional probability. 
-  Raw totals for each conditional probability can also be requested by the user. Proportions
-  can then be used to calculate various detection theory statistics such as d' and criterion.
-Depends: R (>= 3.5)
+Maintainer: Stuart B. Moore <mooresb.ac@gmail.com>
+Description: A simple detection theory tool for calculating detection theory 
+  statistics. Assign outcomes (i.e., hit, miss, correct rejections and false 
+  alarms) and calculate proportion of each conditional probability. Raw totals 
+  for each outcome are also provided. Proportions can then be used to calculate 
+  various detection theory statistics such as d' and criterion.
+Depends: R (>= 4.2.0)
 Imports: dplyr
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/s-b-moore/sdtt
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0

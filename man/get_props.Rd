@@ -2,29 +2,27 @@
 % Please edit documentation in R/get_props.R
 \name{get_props}
 \alias{get_props}
-\title{Calculate proportion of hits, misses, correct rejections, and false alarms.}
+\title{Calculate proportion of hits, misses, correct rejections, and false alarms
+and return totals for each outcome.}
 \usage{
 get_props(
   data,
   id_var = "id",
-  probability_var = "con_p",
-  return = "raw",
-  condition_var = NULL
+  outcome_var = "outcome",
+  condition_var = NULL,
+  correction = NULL
 )
 }
 \arguments{
 \item{id_var}{Quoted column name coding for participant ID.}
 
-\item{return}{If set to "proportions", returns a data frame
-containing the proportions of each conditional probability. If set to
-"raw" (default), returns the proportions of each conditional probability as well
-as the total number of trials for each conditional probability.}
+\item{outcome_var}{Quoted column name coding for outcomes assigned by the
+assign_outcome() function.}
 
-\item{conditional_var}{Quoted column name coding for conditional
-probability for each row.}
+\item{condition_var}{Quoted column name coding for condition.}
 }
 \description{
-Function called by the user to calculate proportions of each conditional
-probability. Data should include a column containing the conditional
-probabilities assigned using the "get_probs" function.
+Function called by the user to calculate proportions of each outcome.
+Data should include a column containing the outcomes assigned using the
+assign_outcome() function as well as a column containing participant ID.
 }
