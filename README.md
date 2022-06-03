@@ -2,10 +2,14 @@
 
 ## Overview
 <<<<<<< HEAD
+<<<<<<< HEAD
 sdtt is an R package for calculating various signal detection theory (SDT) statistics. The package enables users to assign outcomes (i.e., hit, miss, correct rejection, and false alarm) to data and calculate proportions for each outcome. Currently, two measures from SDT are implemented in sdtt, *d'* and *criterion*. When calculating SDT measures, an automatic check is run to determine whether extreme values have been detected; if extreme values are detected, the user is prompted to selected a correction type (only the loglinear correction is implemented at this time) which recalculates proportions and the user defined SDT measure.
 =======
 sdtt is an R package for calculating various signal detection theory (SDT) statistics. The package enables users to assign outcomes (i.e., hit, miss, correct rejection, and false alarm) to data and calculate proportions for each outcome. Currently, the sensitivity measure *d'* and the response bias measures *absolute criterion* (c) and *relative criterion* (c') are implemented in sdtt. When calculating SDT measures, an automatic check is run to determine whether extreme values have been detected; if extreme values are detected, the user is prompted to selected a correction type (only the loglinear correction is implemented at this time) which recalculates proportions and the user defined SDT measure.
 >>>>>>> sdtt-devel
+=======
+sdtt is an R package for calculating various signal detection theory (SDT) statistics. The package enables users to assign outcomes (i.e., hit, miss, correct rejection, and false alarm) to data and calculate proportions for each outcome. Currently, two measures from SDT are implemented in sdtt, *d'* and *criterion*. When calculating SDT measures, an automatic check is run to determine whether extreme values have been detected; if extreme values are detected, the user is prompted to select a correction type (only the loglinear correction is implemented at this time) which recalculates proportions and the user defined SDT measure.
+>>>>>>> cc3b5448ea7050261e1112b20bf3f0bbc5790bd6
 
 ## Installation
 The initial version of sdtt can be installed from [GitHub](github.com) with:
