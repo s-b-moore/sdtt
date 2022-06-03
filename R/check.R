@@ -69,6 +69,15 @@ check <- function(data,
                    (qnorm(data$p_hit) - qnorm(data$p_fa)))
       }
 
+      # recalculate LR
+      if(measure_var == "beta_lr"){
+
+        # mutate data frame and calculate LR
+        data <- data %>%
+          mutate(beta_lr = log(dnorm(qnorm(data$p_hit)) /
+                                 dnorm(qnorm(data$p_fa))))
+      }
+
       # return data
       return(data)
     }

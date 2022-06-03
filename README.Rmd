@@ -12,7 +12,7 @@ The main version of sdtt can be installed from [GitHub](github.com) with:
 devtools::install_github("s-b-moore/sdtt")
 ```
 
-The development version of sdtt can also be installed from [GitHub](github.com) with:
+The development version of sdtt will contain new functionality which will eventually be merged into the main version once it is clear there are no issues. The development version can be installed from [GitHub](github.com) with:
 
 ``` r
 

@@ -36,6 +36,13 @@
 #'                               hit_var = "p_hit",
 #'                               fa_var = "p_fa",
 #'                               measure = "c_prime")
+#'
+#' # using calc_measures() with proportions data from get_props() example,
+#' # passing likelihood ratio as the measure to calculate
+#' likelihood_ratio <- calc_measures(proportions,
+#'                                   hit_var = "p_hit",
+#'                                   fa_var = "p_fa",
+#'                                   measure = "beta_lr")
 #' }
 #' @importFrom dplyr %>%
 #' @importFrom dplyr mutate
@@ -73,6 +80,15 @@ calc_measures <- function(data,
     data <- c_prime(data,
                     hit_var = hit_var,
                     fa_var = fa_var)
+  }
+
+  # if measure = "beta_lr"
+  if(measure == "beta_lr"){
+
+    # call lr() function
+    data <- lr(data,
+               hit_var = hit_var,
+               fa_var = fa_var)
   }
 
   # return data
@@ -159,6 +175,35 @@ c_prime <- function(data,
 
   # round c'
   data$c_prime <- round(data$c_prime, 3)
+
+  # return data
+  return(data)
+}
+
+# Calculate likelihood ration (beta)
+# This wrapper function is called by the calc_measures() function when
+# "beta_lr" is passed as the measure to be calculated. It is not expected that
+# this function be called by the user.
+#
+#' @importFrom dplyr %>%
+#' @importFrom dplyr mutate
+
+# required arguments for the function
+lr <- function(data,
+               hit_var = "p_hit",
+               fa_var = "p_fa"){
+
+  # mutate data frame and calculate LR
+  data <- data %>%
+    mutate(beta_lr = log(dnorm(qnorm(data[[hit_var]])) /
+                           dnorm(qnorm(data[[fa_var]]))))
+
+  # check for Inf values in LR
+  data <- check(data,
+                measure_var = "beta_lr")
+
+  # round LR
+  data$likelihood_ratio <- round(data$beta_lr, 3)
 
   # return data
   return(data)

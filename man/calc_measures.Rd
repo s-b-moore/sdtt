@@ -43,5 +43,12 @@ c_prime_data <- calc_measures(proportions,
                               hit_var = "p_hit",
                               fa_var = "p_fa",
                               measure = "c_prime")
+
+# using calc_measures() with proportions data from get_props() example,
+# passing likelihood ratio as the measure to calculate
+likelihood_ratio <- calc_measures(proportions,
+                                  hit_var = "p_hit",
+                                  fa_var = "p_fa",
+                                  measure = "beta_lr")
 }
 }
