@@ -26,6 +26,15 @@ check <- function(data,
     # store the response
     if(response == 1){
 
+      # check for outcome totals
+      if("n_hit" %in% colnames(data) == FALSE |
+         "n_miss" %in% colnames(data) == FALSE |
+         "n_cr" %in% colnames(data) == FALSE |
+         "n_fa" %in% colnames(data) == FALSE){
+
+        stop("Automatic recalculation of proportions and measures requires totals for each outcome. Please recalculate proportions using the get_props() function and pass the entire data frame to the calc_measures() function.", call. = FALSE)
+      }
+
       # add 0.5 to each outcome
       data <- data %>%
         mutate(n_hit = n_hit + 0.5,
