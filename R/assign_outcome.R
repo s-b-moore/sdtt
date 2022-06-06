@@ -33,7 +33,8 @@ assign_outcome <- function(data,
   # error message if arguments are missing
   if(missing(acc_var) | missing(signal_var)){
 
-    stop("Arguments for both 'acc_var' and 'signal_var' must be passed. Check each of these arguments in the call to assign_outcome().", call. = FALSE)
+    stop("Arguments for both 'acc_var' and 'signal_var' must be passed.
+[1] Check each of these arguments in the call to assign_outcome().", call. = FALSE)
   }
 
   # mutate data and assign outcomes

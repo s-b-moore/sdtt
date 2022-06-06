@@ -53,7 +53,8 @@ get_props <- function(data,
   # error message if arguments are missing
   if(missing(id_var) | missing(outcome_var)){
 
-    stop("Arguments for both 'id_var' and 'outcome_var' must be passed. Check each of these arguments in the call to get_props().", call. = FALSE)
+    stop("Arguments for both 'id_var' and 'outcome_var' must be passed.
+[1] Check each of these arguments in the call to get_props().", call. = FALSE)
   }
 
   # get a unique vector of participants

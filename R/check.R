@@ -33,8 +33,8 @@ check <- function(data,
          "n_fa" %in% colnames(data) == FALSE){
 
         stop("Automatic recalculation of proportions and measures requires totals for each outcome.
-             Please recalculate proportions using the get_props() function and pass the entire data frame to the calc_measures() function.
-             Alternatively, pass a valid argument to 'correction' in the call to get_props().", call. = FALSE)
+[1] Please recalculate proportions using the get_props() function and pass the entire data frame to the calc_measures() function.
+[2] Alternatively, pass a valid argument to 'correction' in the call to get_props().", call. = FALSE)
       }
 
       # add 0.5 to each outcome

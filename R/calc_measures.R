@@ -61,13 +61,15 @@ calc_measures <- function(data,
      measure != "c_prime" &
      measure != "beta_lr"){
 
-    stop("Unsupported measure called. Check the 'measure' argument in the call to calc_measures().", call. = FALSE)
+    stop("Unsupported measure called.
+[1] Check the 'measure' argument in the call to calc_measures().", call. = FALSE)
   }
 
   # error message if arguments are missing
   if(missing(hit_var) | missing(fa_var)){
 
-    stop("Arguments for both 'hit_var' and 'fa_var' must be passed. Check each of these arguments in the call to calc_measures().", call. = FALSE)
+    stop("Arguments for both 'hit_var' and 'fa_var' must be passed.
+[1] Check each of these arguments in the call to calc_measures().", call. = FALSE)
   }
 
   # if measure = "d_prime"
