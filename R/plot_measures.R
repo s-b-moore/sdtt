@@ -11,7 +11,11 @@
 #'
 #' @examples
 #' \dontrun{
-#'
+#' # using plot_measures() with d' data obtained from calc_measures() function
+#' d_plot <- plot_measures(d_data,
+#'                         id_var = "id",
+#'                         measure = "d_prime",
+#'                         condition_var = NULL)
 #' }
 #' @importFrom dplyr %>%
 #' @importFrom forcats inorder
